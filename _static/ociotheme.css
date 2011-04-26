@@ -1,0 +1,157 @@
+@import url("basic.css");
+
+body
+{
+    font-family: Arial,Verdana,sans-serif;
+    font: normal 10pt Arial,sans-serif;
+    color: #444;
+    line-height: 160%;
+    margin: 0;
+}
+
+#wrapper-out
+{
+    width:90%;
+    background-image: url(grad-left.png);
+    background-repeat: repeat-y;
+
+    /* Centre'ify main column*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#wrapper-in
+{
+    background-image: url(grad-right.png);
+    background-repeat: repeat-y;
+    background-position: right;
+
+    /* Padding for border image */
+    padding: 8px;
+}
+
+#header
+{
+    padding-left: 8px;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    margin:0;
+}
+
+#header h1 a
+{
+    text-decoration: none;
+    color: #444;
+}
+
+#header table
+{
+    border: 100px;
+}
+
+#navi
+{
+    width: 180px;
+    float:left;
+    border-right: 1px solid rgb(200, 200, 200);
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+#navi ul
+{
+    padding: 4px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#navi li ul
+{
+    font-size: 90%;
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+#navi li ul li:before
+{
+    /* ARrow before nested files */
+	content: "\00BB \0020";
+}
+
+#content
+{
+    /* Margin matches width of #navi, so it appears to right */
+    margin-left: 180px;
+    padding: 16px;
+}
+
+#footer
+{
+    /* Ensure footer clears #navi on short pages*/
+    clear: both;
+
+    border-top: 1px solid rgb(200, 200, 200);
+}
+
+
+/* Content styling */
+
+ul
+{
+    padding-left: 20px;
+}
+
+a {
+    color: #03C;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 0;
+    padding: 0.7em 0 0.3em 0;
+    font-size: 1.5em;
+}
+
+h2 {
+    margin: 1.3em 0 0.2em 0;
+    font-size: 1.35em;
+    padding: 0;
+}
+
+h3 {
+    margin: 1em 0 -0.3em 0;
+    font-size: 1.2em;
+}
+
+div.body h1 a, div.body h2 a, div.body h3 a, div.body h4 a, div.body h5 a, div.body h6 a {
+    color: black!important;
+}
+
+h1 a.anchor, h2 a.anchor, h3 a.anchor, h4 a.anchor, h5 a.anchor, h6 a.anchor {
+    display: none;
+    margin: 0 0 0 0.3em;
+    padding: 0 0.2em 0 0.2em;
+    color: #aaa!important;
+}
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor,
+h5:hover a.anchor, h6:hover a.anchor {
+    display: inline;
+}
+
+h1 a.anchor:hover, h2 a.anchor:hover, h3 a.anchor:hover, h4 a.anchor:hover,
+h5 a.anchor:hover, h6 a.anchor:hover {
+    color: #777;
+    background-color: #eee;
+}
+
+a.headerlink {
+    color: black !important;
+    font-size: 1em;
+    margin-left: 6px;
+    padding: 0 4px 0 4px;
+    text-decoration: none!important;
+}
+
+a.headerlink:hover {
+    background-color: #ccc;
+    color: white!important;
+}

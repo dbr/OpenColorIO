@@ -1,0 +1,16 @@
+SPI Workflow
+============
+
+This document describes a high-level overview on how to emulate the current color management practice at Sony Imageworks. It applies equally to all profiles used at Imageworks, including both the VFX and Animation profiles.  It's by no means a requirement to follow this workflow at your own facility, this is merely a guideline on how we choose to work.
+
+General Pipeline Observations
+*****************************
+
+All images, on disk, contain colorspace information as a substring withing the filename.  This is obeyed by all applications that load image, write images, or view images.  File extensions and metadata are ignored with regards to color processing.
+
+Example::
+
+    colorimage_lnf.exr  : lnf
+    dataimage_ncf.exr : ncf
+    plate_lg10.dpx : lg10
+    texture_dt8.tif: dt8

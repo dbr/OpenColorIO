@@ -1,23 +1,20 @@
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+<html>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Setup &mdash; OpenColorIO v0.7.8 documentation</title>
+    <title>Setup &mdash; OpenColorIO v0.8.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/ociotheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/print.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.8',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,30 +23,66 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/theme_extras.js"></script>
-    <link rel="top" title="OpenColorIO v0.7.8 documentation" href="index.html" />
-    <link rel="next" title="Usage Examples" href="UsageExamples.html" />
-    <link rel="prev" title="Overview" href="Overview.html" /> 
-  </head>
-  <body>
-      <div class="header"><h1 class="heading"><a href="index.html">
-          <span>OpenColorIO v0.7.8 documentation</span></a></h1>
-        <h2 class="heading"><span>Setup</span></h2>
-      </div>
-      <div class="topnav">
-      
-        <p>
-        «&#160;&#160;<a href="Overview.html">Overview</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="UsageExamples.html">Usage Examples</a>&#160;&#160;»
-        </p>
+    <link rel="top" title="OpenColorIO v0.8.0 documentation" href="index.html" />
+    <link rel="next" title="User Guide" href="userguide/index.html" />
+    <link rel="prev" title="Tool overview" href="tool_overview.html" /> 
+</head>
+<body>
+    <div id="wrapper-out">
+    <div id="wrapper-in">
+        <div id="header">
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <img src="_static/logo.png" alt="OpenColorIO logo">
+                        </a>
+                    </td>
+                    <td>
+                        <h1><a href="index.html">OpenColorIO</a></h1>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="mainbody">
+            <div id="navi"> <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool_overview.html">Tool overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-setup">Environment setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nuke-configuration">Nuke Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloads.html">Downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ChangeLog.html">ChangeLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="License.html">License</a></li>
+</ul>
 
-      </div>
-      <div class="content">
-        
-        
+            </div>
+            <div id="content">
+                <div id="contentbar"> 
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="userguide/index.html" title="User Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tool_overview.html" title="Tool overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">OpenColorIO v0.8.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+                </div>
+                
   <div class="section" id="setup">
 <h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="building-from-source">
@@ -58,9 +91,10 @@
 steps should cover many common setups.</p>
 <p>The basic requirements are:</p>
 <ul class="simple">
-<li>cmake &gt;2.8</li>
+<li>cmake &gt;= 2.8</li>
 <li>(optional) Python 2.x (for the Python bindings)</li>
 <li>(optional) Nuke 6.x (for the Nuke nodes)</li>
+<li>(optional) OpenImageIO (for apps including ocioconvert)</li>
 <li>(optional) Truelight SDK (for TruelightTransform)</li>
 </ul>
 <p>In the OCIO source directory, make a build directory (optionally, but
@@ -79,8 +113,7 @@ highly recommended):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">make</span> <span class="o">-</span><span class="n">j8</span>
 </pre></div>
 </div>
-<p>Finally, to install into the CMAKE_INSTALL_PREFIX (the install
-directory):</p>
+<p>Finally, to install into the CMAKE_INSTALL_PREFIX (the &#8220;install&#8221; directory):</p>
 <div class="highlight-python"><pre>make install</pre>
 </div>
 <p>If nothing went wrong, you should now have an <tt class="docutils literal"><span class="pre">include/</span></tt> directory
@@ -209,61 +242,50 @@ write your own, better viewer setup function!</p>
 <span class="sd">    unless remove_nuke_default is False</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c"># TODO: How to we unregister all? This assumes no other luts</span>
+    <span class="c"># have been registered by other viewer processes</span>
     <span class="k">if</span> <span class="n">remove_nuke_default</span><span class="p">:</span>
         <span class="n">nuke</span><span class="o">.</span><span class="n">ViewerProcess</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="s">&#39;rec709&#39;</span><span class="p">)</span>
         <span class="n">nuke</span><span class="o">.</span><span class="n">ViewerProcess</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="s">&#39;sRGB&#39;</span><span class="p">)</span>
 
 
-    <span class="c"># Formats the display and transform, e.g &quot;Film1D (sRGB&quot;</span>
-    <span class="n">DISPLAY_UI_FORMAT</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%(transform)s</span><span class="s"> (</span><span class="si">%(display)s</span><span class="s">)&quot;</span>
+    <span class="c"># Formats the display and transform, e.g &quot;Film1D (sRGB)&quot;</span>
+    <span class="n">DISPLAY_UI_FORMAT</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%(view)s</span><span class="s"> (</span><span class="si">%(display)s</span><span class="s">)&quot;</span>
 
     <span class="kn">import</span> <span class="nn">PyOpenColorIO</span> <span class="kn">as</span> <span class="nn">OCIO</span>
-    <span class="n">cfg</span> <span class="o">=</span> <span class="n">OCIO</span><span class="o">.</span><span class="n">GetCurrentConfig</span><span class="p">()</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">OCIO</span><span class="o">.</span><span class="n">GetCurrentConfig</span><span class="p">()</span>
 
-    <span class="n">allDisplays</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">getDisplayDeviceNames</span><span class="p">()</span>
-
-    <span class="c"># For every display, loop over every transform</span>
-    <span class="k">for</span> <span class="n">dname</span> <span class="ow">in</span> <span class="n">allDisplays</span><span class="p">:</span>
-        <span class="n">allTransforms</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">getDisplayTransformNames</span><span class="p">(</span><span class="n">dname</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">xform</span> <span class="ow">in</span> <span class="n">allTransforms</span><span class="p">:</span>
+    <span class="c"># For every display, loop over every view</span>
+    <span class="k">for</span> <span class="n">display</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">getDisplays</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">getViews</span><span class="p">(</span><span class="n">display</span><span class="p">):</span>
             <span class="n">nuke</span><span class="o">.</span><span class="n">ViewerProcess</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">DISPLAY_UI_FORMAT</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;transform&#39;</span><span class="p">:</span> <span class="n">xform</span><span class="p">,</span> <span class="s">&quot;display&quot;</span><span class="p">:</span> <span class="n">dname</span><span class="p">},</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">DISPLAY_UI_FORMAT</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;view&#39;</span><span class="p">:</span> <span class="n">view</span><span class="p">,</span> <span class="s">&quot;display&quot;</span><span class="p">:</span> <span class="n">display</span><span class="p">},</span>
                 <span class="n">call</span> <span class="o">=</span> <span class="n">nuke</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">OCIODisplay</span><span class="p">,</span>
                 <span class="n">args</span> <span class="o">=</span> <span class="p">(),</span>
-                <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;device&quot;</span><span class="p">:</span> <span class="n">dname</span><span class="p">,</span> <span class="s">&quot;transform&quot;</span><span class="p">:</span> <span class="n">xform</span><span class="p">})</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;display&quot;</span><span class="p">:</span> <span class="n">display</span><span class="p">,</span> <span class="s">&quot;view&quot;</span><span class="p">:</span> <span class="n">view</span><span class="p">})</span>
 
 
-    <span class="c"># Get the default display and transform, register it as the</span>
+    <span class="c"># Get the default display and view, register it as the</span>
     <span class="c"># default used on Nuke startup</span>
-    <span class="n">defaultDisplay</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">getDefaultDisplayDeviceName</span><span class="p">()</span>
-    <span class="n">defaultXform</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">getDefaultDisplayTransformName</span><span class="p">(</span><span class="n">defaultDisplay</span><span class="p">)</span>
+    <span class="n">defaultDisplay</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getDefaultDisplay</span><span class="p">()</span>
+    <span class="n">defaultView</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getDefaultView</span><span class="p">(</span><span class="n">defaultDisplay</span><span class="p">)</span>
 
     <span class="n">nuke</span><span class="o">.</span><span class="n">knobDefault</span><span class="p">(</span>
         <span class="s">&quot;Viewer.viewerProcess&quot;</span><span class="p">,</span>
-        <span class="n">DISPLAY_UI_FORMAT</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;transform&#39;</span><span class="p">:</span> <span class="n">defaultXform</span><span class="p">,</span> <span class="s">&quot;display&quot;</span><span class="p">:</span> <span class="n">defaultDisplay</span><span class="p">})</span>
+        <span class="n">DISPLAY_UI_FORMAT</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;view&#39;</span><span class="p">:</span> <span class="n">defaultView</span><span class="p">,</span> <span class="s">&quot;display&quot;</span><span class="p">:</span> <span class="n">defaultDisplay</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 </div>
 
 
-      </div>
-      <div class="bottomnav">
-      
-        <p>
-        «&#160;&#160;<a href="Overview.html">Overview</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="UsageExamples.html">Usage Examples</a>&#160;&#160;»
-        </p>
-
-      </div>
-
-    <div class="footer">
-        &copy; Copyright 2010, Sony Pictures Imageworks.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+            </div>
+        </div>
+        <div id="footer">
+                &copy; Copyright 2010, Sony Pictures Imageworks.
+            Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+        </div>
     </div>
-  </body>
+    </div>
+</body>
 </html>

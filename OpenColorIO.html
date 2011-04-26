@@ -1,23 +1,20 @@
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+<html>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>C++ API &mdash; OpenColorIO v0.7.8 documentation</title>
+    <title>C++ API &mdash; OpenColorIO v0.8.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/ociotheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/print.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.7.8',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,30 +23,53 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/theme_extras.js"></script>
-    <link rel="top" title="OpenColorIO v0.7.8 documentation" href="index.html" />
-    <link rel="next" title="C++ Transforms" href="OpenColorTransforms.html" />
-    <link rel="prev" title="Contexts" href="Contexts.html" /> 
-  </head>
-  <body>
-      <div class="header"><h1 class="heading"><a href="index.html">
-          <span>OpenColorIO v0.7.8 documentation</span></a></h1>
-        <h2 class="heading"><span>C++ API</span></h2>
-      </div>
-      <div class="topnav">
-      
-        <p>
-        «&#160;&#160;<a href="Contexts.html">Contexts</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="OpenColorTransforms.html">C++ Transforms</a>&#160;&#160;»
-        </p>
+    <link rel="top" title="OpenColorIO v0.8.0 documentation" href="index.html" /> 
+</head>
+<body>
+    <div id="wrapper-out">
+    <div id="wrapper-in">
+        <div id="header">
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <img src="_static/logo.png" alt="OpenColorIO logo">
+                        </a>
+                    </td>
+                    <td>
+                        <h1><a href="index.html">OpenColorIO</a></h1>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="mainbody">
+            <div id="navi"> <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool_overview.html">Tool overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloads.html">Downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ChangeLog.html">ChangeLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="License.html">License</a></li>
+</ul>
 
-      </div>
-      <div class="content">
-        
-        
+            </div>
+            <div id="content">
+                <div id="contentbar"> 
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">OpenColorIO v0.8.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+                </div>
+                
   <div class="section" id="c-api">
 <h1>C++ API<a class="headerlink" href="#c-api" title="Permalink to this headline">¶</a></h1>
 <p><strong>Usage Example:</strong> <em>Compositing plugin, which converts from &#8220;log&#8221; to &#8220;lin&#8221;</em></p>
@@ -149,7 +169,7 @@ necessary to utilized customized <a class="reference internal" href="OpenColorTr
 selecting / creating / working with custom color configurations.</p>
 <p>Roughly speaking, if you&#8217;re a novice user you will want to select a
 default configuration that most closely approximates your use case
-(animation, visual effects, etc), and set <span class="target" id="index-0"></span><a class="reference internal" href="Setup.html#envvar-OCIO"><tt class="xref std std-envvar docutils literal"><span class="pre">OCIO</span></tt></a> environment
+(animation, visual effects, etc), and set <span class="target" id="index-0"></span><a class="reference internal" href="setup.html#envvar-OCIO"><tt class="xref std std-envvar docutils literal"><span class="pre">OCIO</span></tt></a> environment
 variable to point at the root of that configuration.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -157,7 +177,7 @@ variable to point at the root of that configuration.</p>
 a multi-app ecosystem, as it allows all applications to be
 consistently configured.</p>
 </div>
-<p>See <a class="reference internal" href="UsageExamples.html"><em>Usage Examples</em></a></p>
+<p>See <tt class="xref doc docutils literal"><span class="pre">UsageExamples</span></tt></p>
 <dl class="function">
 <dt id="GetCurrentConfig">
 <a class="reference internal" href="OpenColorTypes.html#ConstConfigRcPtr" title="ConstConfigRcPtr">ConstConfigRcPtr</a> <tt class="descname">GetCurrentConfig</tt><big>(</big><big>)</big><a class="headerlink" href="#GetCurrentConfig" title="Permalink to this definition">¶</a></dt>
@@ -1187,22 +1207,13 @@ If the filename cannot be found, an exception will be thrown.</p>
 </div>
 
 
-      </div>
-      <div class="bottomnav">
-      
-        <p>
-        «&#160;&#160;<a href="Contexts.html">Contexts</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="OpenColorTransforms.html">C++ Transforms</a>&#160;&#160;»
-        </p>
-
-      </div>
-
-    <div class="footer">
-        &copy; Copyright 2010, Sony Pictures Imageworks.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+            </div>
+        </div>
+        <div id="footer">
+                &copy; Copyright 2010, Sony Pictures Imageworks.
+            Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+        </div>
     </div>
-  </body>
+    </div>
+</body>
 </html>

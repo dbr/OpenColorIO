@@ -1,78 +1,117 @@
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+<html>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage Examples &mdash; OpenColorIO v0.7.8 documentation</title>
+    <title>Usage Examples &mdash; OpenColorIO v0.8.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/ociotheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.7.8',
+        URL_ROOT:    '../',
+        VERSION:     '0.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/theme_extras.js"></script>
-    <link rel="top" title="OpenColorIO v0.7.8 documentation" href="index.html" />
-    <link rel="next" title="Contexts" href="Contexts.html" />
-    <link rel="prev" title="Setup" href="Setup.html" /> 
-  </head>
-  <body>
-      <div class="header"><h1 class="heading"><a href="index.html">
-          <span>OpenColorIO v0.7.8 documentation</span></a></h1>
-        <h2 class="heading"><span>Usage Examples</span></h2>
-      </div>
-      <div class="topnav">
-      
-        <p>
-        «&#160;&#160;<a href="Setup.html">Setup</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="Contexts.html">Contexts</a>&#160;&#160;»
-        </p>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="OpenColorIO v0.8.0 documentation" href="../index.html" />
+    <link rel="up" title="Developer guide" href="index.html" />
+    <link rel="next" title="FAQ" href="../FAQ.html" />
+    <link rel="prev" title="Issues" href="issues.html" /> 
+</head>
+<body>
+    <div id="wrapper-out">
+    <div id="wrapper-in">
+        <div id="header">
+            <table>
+                <tr>
+                    <td>
+                        <a href="../index.html">
+                            <img src="../_static/logo.png" alt="OpenColorIO logo">
+                        </a>
+                    </td>
+                    <td>
+                        <h1><a href="../index.html">OpenColorIO</a></h1>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="mainbody">
+            <div id="navi"> <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tool_overview.html">Tool overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding_guidelines.html">Coding guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting_changes.html">Submitting Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issues</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Usage Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ChangeLog.html">ChangeLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../License.html">License</a></li>
+</ul>
 
-      </div>
-      <div class="content">
-        
-        
+            </div>
+            <div id="content">
+                <div id="contentbar"> 
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../FAQ.html" title="FAQ"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="issues.html" title="Issues"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">OpenColorIO v0.8.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Developer guide</a> &raquo;</li> 
+      </ul>
+    </div>
+                </div>
+                
   <div class="section" id="usage-examples">
 <h1>Usage Examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h1>
+<p>Some examples of using the OCIO API, via both C++ and the Python bindings.</p>
+<p>For further examples, see the <tt class="docutils literal"><span class="pre">src/apps/</span></tt> directory in the git repository</p>
 <div class="section" id="applying-a-basic-colorspace-transform-using-the-cpu">
 <span id="usage-applybasic"></span><h2>Applying a basic ColorSpace transform, using the CPU<a class="headerlink" href="#applying-a-basic-colorspace-transform-using-the-cpu" title="Permalink to this headline">¶</a></h2>
 <p>This describes what code is used to convert from a specified source
-<a class="reference internal" href="OpenColorIO.html#ColorSpace" title="ColorSpace"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ColorSpace</span></tt></a> to a specified destination <a class="reference internal" href="OpenColorIO.html#ColorSpace" title="ColorSpace"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ColorSpace</span></tt></a>.
+<a class="reference internal" href="../OpenColorIO.html#ColorSpace" title="ColorSpace"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ColorSpace</span></tt></a> to a specified destination <a class="reference internal" href="../OpenColorIO.html#ColorSpace" title="ColorSpace"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ColorSpace</span></tt></a>.
 If you are using the OCIO Nuke plugins, the OCIOColorSpace node performs these
 steps internally.</p>
 <ol class="arabic simple">
 <li><strong>Get the Config.</strong>
 This represents the entirety of the current color &#8220;universe&#8221;. It can either
 be initialized by your app at startup or created explicitly. In common
-usage, you can just query <a class="reference internal" href="OpenColorIO.html#GetCurrentConfig" title="GetCurrentConfig"><tt class="xref cpp cpp-func docutils literal"><span class="pre">GetCurrentConfig()</span></tt></a>, which will auto
-initialize on first use using the <span class="target" id="index-0"></span><a class="reference internal" href="Setup.html#envvar-OCIO"><tt class="xref std std-envvar docutils literal"><span class="pre">OCIO</span></tt></a> environment variable.</li>
+usage, you can just query <a class="reference internal" href="../OpenColorIO.html#GetCurrentConfig" title="GetCurrentConfig"><tt class="xref cpp cpp-func docutils literal"><span class="pre">GetCurrentConfig()</span></tt></a>, which will auto
+initialize on first use using the <span class="target" id="index-0"></span><a class="reference internal" href="../setup.html#envvar-OCIO"><tt class="xref std std-envvar docutils literal"><span class="pre">OCIO</span></tt></a> environment variable.</li>
 <li><strong>Get Processor from the Config.</strong>
 A processor corresponds to a &#8216;baked&#8217; color transformation. You specify two
-arguments when querying a processor: the <a class="reference internal" href="OpenColorIO.html#colorspace-section"><em>ColorSpace</em></a> you are
-coming from, and the <a class="reference internal" href="OpenColorIO.html#colorspace-section"><em>ColorSpace</em></a> you are going to.
-<a class="reference internal" href="OpenColorIO.html#cfgcolorspaces-section"><em>ColorSpaces</em></a> ColorSpaces can be either explicitly named
+arguments when querying a processor: the <a class="reference internal" href="../OpenColorIO.html#colorspace-section"><em>ColorSpace</em></a> you are
+coming from, and the <a class="reference internal" href="../OpenColorIO.html#colorspace-section"><em>ColorSpace</em></a> you are going to.
+<a class="reference internal" href="../OpenColorIO.html#cfgcolorspaces-section"><em>ColorSpaces</em></a> ColorSpaces can be either explicitly named
 strings (defined by the current configuration) or can be
-<a class="reference internal" href="OpenColorIO.html#cfgroles-section"><em>Roles</em></a> (essentially <a class="reference internal" href="OpenColorIO.html#colorspace-section"><em>ColorSpace</em></a> aliases)
+<a class="reference internal" href="../OpenColorIO.html#cfgroles-section"><em>Roles</em></a> (essentially <a class="reference internal" href="../OpenColorIO.html#colorspace-section"><em>ColorSpace</em></a> aliases)
 which are consistent across configurations. Constructing a
-<a class="reference internal" href="OpenColorIO.html#Processor" title="Processor"><tt class="xref cpp cpp-class docutils literal"><span class="pre">Processor</span></tt></a> object is likely a blocking operation (thread-wise)
+<a class="reference internal" href="../OpenColorIO.html#Processor" title="Processor"><tt class="xref cpp cpp-class docutils literal"><span class="pre">Processor</span></tt></a> object is likely a blocking operation (thread-wise)
 so care should be taken to do this as infrequently as is sensible. Once per
 render &#8216;setup&#8217; would be appropriate, once per scanline would be
 inappropriate.</li>
@@ -80,7 +119,7 @@ inappropriate.</li>
 Once you have the processor, you can apply the color transformation using
 the &#8220;apply&#8221; function.  In <a class="reference internal" href="#usage-applybasic-cpp"><em>C++</em></a>, you apply the
 processing in-place, by first wrapping your image in an
-<a class="reference internal" href="OpenColorIO.html#ImageDesc" title="ImageDesc"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ImageDesc</span></tt></a> class.  This approach is intended to be used in high
+<a class="reference internal" href="../OpenColorIO.html#ImageDesc" title="ImageDesc"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ImageDesc</span></tt></a> class.  This approach is intended to be used in high
 performance applications, and can be used on multiple threads (per scanline,
 per tile, etc).   In <a class="reference internal" href="#usage-applybasic-python"><em>Python</em></a> you call
 &#8220;applyRGB&#8221; / &#8220;applyRGBA&#8221; on your sequence of pixels.   Note that in both
@@ -135,8 +174,8 @@ transform name.</p>
 <li><strong>Get the Config.</strong>
 See <a class="reference internal" href="#usage-applybasic"><em>Applying a basic ColorSpace transform, using the CPU</em></a> for details.</li>
 <li><strong>Lookup the display ColorSpace.</strong>
-The display <a class="reference internal" href="OpenColorIO.html#ColorSpace" title="ColorSpace"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ColorSpace</span></tt></a> is queried from the configuration using
-<a class="reference internal" href="OpenColorIO.html#Config::getDisplayColorSpaceName__cCP.cCPC" title="Config::getDisplayColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">Config::getDisplayColorSpaceName()</span></tt></a>.   If the user has specified
+The display <a class="reference internal" href="../OpenColorIO.html#ColorSpace" title="ColorSpace"><tt class="xref cpp cpp-class docutils literal"><span class="pre">ColorSpace</span></tt></a> is queried from the configuration using
+<a class="reference internal" href="../OpenColorIO.html#Config::getDisplayColorSpaceName__cCP.cCPC" title="Config::getDisplayColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">Config::getDisplayColorSpaceName()</span></tt></a>.   If the user has specified
 value for the <tt class="docutils literal"><span class="pre">device</span></tt> or the <tt class="docutils literal"><span class="pre">displayTransformName</span></tt>, use them. If these
 values are unknown default values can be queried (as shown below).</li>
 <li><strong>Get the processor from the Config.</strong>
@@ -197,22 +236,22 @@ See <a class="reference internal" href="#usage-displayimage"><em>Displaying an i
 <li><strong>Create a new DisplayTransform.</strong>
 This transform will embody the full &#8216;display&#8217; pipeline you wish to control.
 The user is required to call
-<a class="reference internal" href="OpenColorTransforms.html#DisplayTransform::setInputColorSpaceName__cCP" title="DisplayTransform::setInputColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">DisplayTransform::setInputColorSpaceName()</span></tt></a> to set the input
+<a class="reference internal" href="../OpenColorTransforms.html#DisplayTransform::setInputColorSpaceName__cCP" title="DisplayTransform::setInputColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">DisplayTransform::setInputColorSpaceName()</span></tt></a> to set the input
 ColorSpace, as well as
-<a class="reference internal" href="OpenColorTransforms.html#DisplayTransform::setDisplayColorSpaceName__cCP" title="DisplayTransform::setDisplayColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">DisplayTransform::setDisplayColorSpaceName()</span></tt></a> (with the results of
-<a class="reference internal" href="OpenColorIO.html#Config::getDisplayColorSpaceName__cCP.cCPC" title="Config::getDisplayColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">Config::getDisplayColorSpaceName()</span></tt></a>).</li>
+<a class="reference internal" href="../OpenColorTransforms.html#DisplayTransform::setDisplayColorSpaceName__cCP" title="DisplayTransform::setDisplayColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">DisplayTransform::setDisplayColorSpaceName()</span></tt></a> (with the results of
+<a class="reference internal" href="../OpenColorIO.html#Config::getDisplayColorSpaceName__cCP.cCPC" title="Config::getDisplayColorSpaceName"><tt class="xref cpp cpp-func docutils literal"><span class="pre">Config::getDisplayColorSpaceName()</span></tt></a>).</li>
 <li><strong>Set any additional DisplayTransform options.</strong>
 If the user wants to specify a channel swizzle, a scene-linear exposure
 offset, an artistic look, this is the place to add it. See below for an
 example. Note that although we provide recommendations for display, any
 transforms are allowed to be added into any of the slots. So if for your app
 you want to add 3 transforms into a particular slot (chained together), you
-are free to wrap them in a <a class="reference internal" href="OpenColorTransforms.html#GroupTransform" title="GroupTransform"><tt class="xref cpp cpp-class docutils literal"><span class="pre">GroupTransform</span></tt></a> and set it
+are free to wrap them in a <a class="reference internal" href="../OpenColorTransforms.html#GroupTransform" title="GroupTransform"><tt class="xref cpp cpp-class docutils literal"><span class="pre">GroupTransform</span></tt></a> and set it
 accordingly!</li>
 <li><strong>Get the processor from the Config.</strong>
 The processor is then queried from the config passing the new
-<a class="reference internal" href="OpenColorTransforms.html#DisplayTransform" title="DisplayTransform"><tt class="xref cpp cpp-class docutils literal"><span class="pre">DisplayTransform</span></tt></a> as the argument.   Once the processor has been
-returned, the original <a class="reference internal" href="OpenColorTransforms.html#DisplayTransform" title="DisplayTransform"><tt class="xref cpp cpp-class docutils literal"><span class="pre">DisplayTransform</span></tt></a> is no longer necessary
+<a class="reference internal" href="../OpenColorTransforms.html#DisplayTransform" title="DisplayTransform"><tt class="xref cpp cpp-class docutils literal"><span class="pre">DisplayTransform</span></tt></a> as the argument.   Once the processor has been
+returned, the original <a class="reference internal" href="../OpenColorTransforms.html#DisplayTransform" title="DisplayTransform"><tt class="xref cpp cpp-class docutils literal"><span class="pre">DisplayTransform</span></tt></a> is no longer necessary
 to hold onto. (Though if you&#8217;d like to for re-use, there is no problem doing
 so).</li>
 <li><strong>Convert your image, using the processor.</strong>
@@ -383,22 +422,13 @@ processor as you normally would have, see above for details.</li>
 </div>
 
 
-      </div>
-      <div class="bottomnav">
-      
-        <p>
-        «&#160;&#160;<a href="Setup.html">Setup</a>
-        &#160;&#160;::&#160;&#160;
-        <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="Contexts.html">Contexts</a>&#160;&#160;»
-        </p>
-
-      </div>
-
-    <div class="footer">
-        &copy; Copyright 2010, Sony Pictures Imageworks.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+            </div>
+        </div>
+        <div id="footer">
+                &copy; Copyright 2010, Sony Pictures Imageworks.
+            Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+        </div>
     </div>
-  </body>
+    </div>
+</body>
 </html>
