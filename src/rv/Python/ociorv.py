@@ -105,23 +105,49 @@ def set_noop(nodename):
     setIntProperty("%s.lut.active" % nodename, [is_active], False)
 
 
-def view_to_uistr(view):
-    # sRGB/Film
-    return "/".join(view)
+class OcioRv(rv.rvtypes.MinorMode):
 
+    def cycle_display(self, forward = False, backward = False):
+        if not (forward or backward):
+            raise ValueError("Must specify either forward to backward")
 
-class PyMyStuffMode(rv.rvtypes.MinorMode):
+        if forward:
+            delta = 1
+        elif backward:
+            delta = -1
 
-    def set_display(self, event):
-        avail = self.get_views()
+        all_disp = sorted(self.get_views().keys()) # TODO: avoid losing order from config?
+        curindex = all_disp.index(self.active_display)
+        newindex = (curindex + delta) % len(all_disp)
+
+        self.active_display = all_disp[newindex]
+
+        if self.active_view not in self.get_views()[self.active_display]:
+            # Current view doesn't exist in new display, use default instead
+            cfg = self.get_cfg()
+            self.active_view = cfg.getDefaultView(cfg.getDefaultDisplay())
+        else:
+            # Keep current view
+            pass
+
+        self.refresh()
+
+    def cycle_view(self, forward = False, backward = False):
+        if not (forward or backward):
+            raise ValueError("Must specify either forward to backward")
+
+        if forward:
+            delta = 1
+        elif backward:
+            delta = -1
+
+        avail = self.get_views()[self.active_display]
+
         cur = self.active_view
         curindex = avail.index(cur)
-        newindex = (curindex + 1) % len(avail)
+        newindex = (curindex + delta) % len(avail)
         self.active_view = avail[newindex]
-        rv.extra_commands.displayFeedback(
-            "Changing display to %s" % view_to_uistr(self.active_view),
-            2.0, # timeout
-            )
+
         self.refresh()
 
     def get_cfg(self):
@@ -130,6 +156,12 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
     def refresh(self):
         """Refresh LUT on all sources
         """
+
+        rv.extra_commands.displayFeedback(
+            "Changing display to %s/%s" % (self.active_display, self.active_view),
+            2.0, # timeout
+            )
+
         for src in rv.commands.nodesOfType("RVSource"):
             path = rv.commands.getStringProperty(
                 "%s.media.movie" % src,
@@ -139,29 +171,33 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
     def source_setup(self, event):
         # Event content example:
         # sourceGroup000001_source;;RVSource;;/path/to/myimg.exr
-        print event.contents()
+
         args = event.contents().split(";;")
         src = args[0]
         srcpath = args[2]
 
         self._config_source(src = src, srcpath = srcpath)
 
+        # TODO: Is this right? Allows the default source-setup to run
+        event.reject()
+
     def _config_source(self, src, srcpath):
         filelut_node = rv.extra_commands.associatedNode("RVColor", src)
         looklut_node = rv.extra_commands.associatedNode("RVLookLUT", src)
 
-        # Set 3D LUT, and activate
+        # Get config, and input colorspace
         cfg = self.get_cfg()
 
         # FIXME: Need a way to customise this per-facility without
         # modifying this file (try: import ociorv_custom_stuff ?)
         inspace = cfg.parseColorSpaceFromString(srcpath)
 
+        # Create display transform to test for noop transform
         test_transform = OCIO.DisplayTransform()
         test_transform.setInputColorSpaceName(inspace)
-        display, view = self.active_view
-        test_transform.setDisplay(display)
-        test_transform.setView(view)
+
+        test_transform.setDisplay(self.active_display)
+        test_transform.setView(self.active_view)
 
         try:
             test_proc = cfg.getProcessor(test_transform)
@@ -174,7 +210,7 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
             return
 
         if test_proc.isNoOp():
-            print "Source is NoOp"
+            print "INFO: Source is NoOp"
             set_noop(nodename = filelut_node)
             set_noop(nodename = looklut_node)
             return
@@ -195,8 +231,8 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
 
         # Scene-linear -> output display transform
         transform = OCIO.DisplayTransform()
-        transform.setDisplay(self.active_view[0])
-        transform.setView(self.active_view[1])
+        transform.setDisplay(self.active_display)
+        transform.setView(self.active_view)
 
         transform.setInputColorSpaceName(OCIO.Constants.ROLE_SCENE_LINEAR)
 
@@ -216,33 +252,31 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
         # LUT after grading etc performed
         set_lut(proc = output_proc, nodename = looklut_node)
 
-        # Update LUT
+        # Update LUT (think this makes RV send the LUT-stuff to the GPU?)
         rv.commands.updateLUT()
 
     def set_view(self, display, view):
         """Set view, and update all sources
         """
-        print "display: %s, view: %s" % (display, view)
-        self.active_view = (display, view)
+        self.active_display = display
+        self.active_view = view
         self.refresh()
 
     def get_views(self):
         """Return [("sRGB", "Film"), ("sRGB", "Log"), ...]
         """
-        available_views = []
+
+        ret = {}
 
         cfg = self.get_cfg()
-        for a_display in cfg.getDisplays():
-            if a_display not in cfg.getActiveDisplays().split(", "):
-                continue
-
+        for a_display in cfg.getActiveDisplays().split(", "):
             for a_view in cfg.getViews(a_display):
                 if a_view not in cfg.getActiveViews():
                     continue
 
-                available_views.append(
-                    (a_display, a_view))
-        return available_views
+                ret.setdefault(a_display, []).append(a_view)
+
+        return ret
 
     def __init__(self):
         rv.rvtypes.MinorMode.__init__(self)
@@ -250,7 +284,10 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
         mode_name = "ociorv-mode"
 
         global_bindings = [
-            ("key-down--d", self.set_display, "set display"),
+            ("key-down--s", lambda e: self.cycle_display(forward=True), "cycle current view forward"),
+            ("key-down--S", lambda e: self.cycle_display(backward=True), "cycle current view forward"),
+            ("key-down--d", lambda e: self.cycle_view(forward=True), "cycle current view forward"),
+            ("key-down--D", lambda e: self.cycle_view(backward=True), "cycle current view forward"),
             ("new-source", self.source_setup, "OCIO source setup"),
             ]
 
@@ -258,26 +295,38 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
 
         # Create [("sRGB/Film", self.set_menu(...)), ("sRGB/Log", ...)]
         views_menu = []
-        for cur_view in self.get_views():
-            def set_view(event, cur_view = cur_view):
-                display, view = cur_view
-                self.set_view(display = display, view = view)
-            mi = (
-                "/".join(cur_view), # label
-                set_view, # actionHook
-                )
-            views_menu.append(mi)
+        for cur_disp, all_views in self.get_views().items():
+            for cur_view in all_views:
+                def set_view(event, cur_disp = cur_disp, cur_view = cur_view):
+                    self.set_view(display = cur_disp, view = cur_view)
 
-        # Set default view
-        cfg = self.get_cfg()
-        self.active_view = (
-            cfg.getDefaultDisplay(),
-            cfg.getDefaultView(cfg.getDefaultDisplay()))
+                def menu_is_active(cur_disp = cur_disp, cur_view = cur_view):
+                    if (cur_disp, cur_view) == (self.active_display, self.active_view):
+                        return rv.commands.CheckedMenuState
+                    else:
+                        return rv.commands.NeutralMenuState
+
+                mi = (
+                    "%s/%s" % (cur_disp, cur_view), # label
+                    set_view, # actionHook
+                    "", # key
+                    menu_is_active, # stateHook
+                    )
+                views_menu.append(mi)
+
+            views_menu.append(("_", lambda e: 0))
 
         # Construct top-level menu
         menu = [("OCIO", [
                     ("Display/Views", views_menu)])]
 
+
+        # Set default display/view
+        cfg = self.get_cfg()
+        self.active_display = cfg.getDefaultDisplay()
+        self.active_view = cfg.getDefaultView(cfg.getDefaultDisplay())
+
+        # Initialise mode
         self.init(mode_name,
                   global_bindings,
                   local_bindings,
@@ -285,4 +334,4 @@ class PyMyStuffMode(rv.rvtypes.MinorMode):
 
 
 def createMode():
-    return PyMyStuffMode()
+    return OcioRv()
