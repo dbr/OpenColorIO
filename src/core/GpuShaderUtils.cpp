@@ -86,6 +86,16 @@ OCIO_NAMESPACE_ENTER
             }
             os << ")";
         }
+        else if(lang == GPU_LANGUAGE_BLINK)
+        {
+            os << "float4(";
+            for(int i=0; i<4; i++)
+            {
+                if(i!=0) os << ", ";
+                os << v4[i]; // Clamping to half is not necessary
+            }
+            os << ")";
+        }
         else
         {
             throw Exception("Unsupported shader language.");
@@ -107,6 +117,16 @@ OCIO_NAMESPACE_ENTER
         else if(lang == GPU_LANGUAGE_GLSL_1_0 || lang == GPU_LANGUAGE_GLSL_1_3)
         {
             os << "vec3(";
+            for(int i=0; i<3; i++)
+            {
+                if(i!=0) os << ", ";
+                os << v3[i]; // Clamping to half is not necessary
+            }
+            os << ")";
+        }
+        else if(lang == GPU_LANGUAGE_BLINK)
+        {
+            os << "float3(";
             for(int i=0; i<3; i++)
             {
                 if(i!=0) os << ", ";
@@ -179,6 +199,13 @@ OCIO_NAMESPACE_ENTER
         }
         else if(lang == GPU_LANGUAGE_GLSL_1_0 || lang == GPU_LANGUAGE_GLSL_1_3)
         {
+            os << "texture3D(";
+            os << lutName << ", ";
+            os << m << " * " << variableName << ".rgb + " << b << ").rgb;" << std::endl;
+        }
+        else if(lang == GPU_LANGUAGE_BLINK)
+        {
+            // FIXME: Blink nonsense
             os << "texture3D(";
             os << lutName << ", ";
             os << m << " * " << variableName << ".rgb + " << b << ").rgb;" << std::endl;

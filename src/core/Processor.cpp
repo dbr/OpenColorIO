@@ -246,6 +246,11 @@ OCIO_NAMESPACE_ENTER
                 shader << "vec4 " << fcnName << "(in vec4 inPixel, \n";
                 shader << "    const sampler3D " << lut3dName << ") \n";
             }
+            else if(lang == GPU_LANGUAGE_BLINK)
+            {
+                shader << "float4 " << fcnName << "(float4 inPixel, \n)";
+                shader << "    []float sampler3D " << lut3dName << ") \n";
+            }
             else throw Exception("Unsupported shader language.");
             
             shader << "{" << "\n";
@@ -257,6 +262,10 @@ OCIO_NAMESPACE_ENTER
             else if(lang == GPU_LANGUAGE_GLSL_1_0 || lang == GPU_LANGUAGE_GLSL_1_3)
             {
                 shader << "vec4 " << pixelName << " = inPixel; \n";
+            }
+            if(lang == GPU_LANGUAGE_BLINK)
+            {
+                shader << "float4 " << pixelName << " = inPixel; \n";
             }
             else throw Exception("Unsupported shader language.");
         }
@@ -620,12 +629,16 @@ OCIO_NAMESPACE_ENTER
 #ifdef __APPLE__
         else
         {
-            // Force a no-op sampling of the 3d lut on OSX to work around a segfault.
-            int lut3DEdgeLen = shaderDesc.getLut3DEdgeLen();
-            shader << "// OSX segfault work-around: Force a no-op sampling of the 3d lut.\n";
-            Write_sampleLut3D_rgb(shader, pixelName,
-                                  lut3dName, lut3DEdgeLen,
-                                  shaderDesc.getLanguage());
+            GpuLanguage lang = shaderDesc.getLanguage();
+            if(lang == GPU_LANGUAGE_GLSL_1_0 || lang == GPU_LANGUAGE_GLSL_1_3 || lang == GPU_LANGUAGE_CG)
+            {
+                // Force a no-op sampling of the 3d lut on OSX to work around a segfault.
+                int lut3DEdgeLen = shaderDesc.getLut3DEdgeLen();
+                shader << "// OSX segfault work-around: Force a no-op sampling of the 3d lut.\n";
+                Write_sampleLut3D_rgb(shader, pixelName,
+                                      lut3dName, lut3DEdgeLen,
+                                      shaderDesc.getLanguage());
+            }
         }
 #endif // __APPLE__
         for(unsigned int i=0; i<m_gpuOpsHwPostProcess.size(); ++i)
