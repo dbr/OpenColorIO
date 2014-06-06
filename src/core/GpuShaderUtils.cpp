@@ -206,9 +206,8 @@ OCIO_NAMESPACE_ENTER
         else if(lang == GPU_LANGUAGE_BLINK)
         {
             // FIXME: Blink nonsense
-            os << "texture3D(";
-            os << lutName << ", ";
-            os << m << " * " << variableName << ".rgb + " << b << ").rgb;" << std::endl;
+            os << variableName << " = _ocioblink_texture3D(" << variableName << ",";
+            os << lutName << ", " << lut3DEdgeLen << ");" << std::endl;
         }
         else
         {

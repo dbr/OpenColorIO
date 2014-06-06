@@ -229,6 +229,14 @@ OCIO_NAMESPACE_ENTER
             
             GpuLanguage lang = shaderDesc.getLanguage();
             
+            if(lang == GPU_LANGUAGE_BLINK)
+            {
+                shader << "float4 _ocioblink_texture3D(float4 pixel, float lut3d[], int edgeSize)\n";
+                shader << "{\n";
+                shader << "    return pixel; // FIXME: Implement this\n"; // FIXME: Implement this!
+                shader << "}\n";
+            }
+
             std::string fcnName = shaderDesc.getFunctionName();
             
             if(lang == GPU_LANGUAGE_CG)
@@ -248,8 +256,8 @@ OCIO_NAMESPACE_ENTER
             }
             else if(lang == GPU_LANGUAGE_BLINK)
             {
-                shader << "float4 " << fcnName << "(float4 inPixel, \n)";
-                shader << "    []float sampler3D " << lut3dName << ") \n";
+                shader << "float4 " << fcnName << "(float4 inPixel, ";
+                shader << "float " << lut3dName << "[]) \n";
             }
             else throw Exception("Unsupported shader language.");
             

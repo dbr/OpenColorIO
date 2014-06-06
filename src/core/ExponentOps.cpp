@@ -243,7 +243,6 @@ OCIO_NAMESPACE_ENTER
             shader << pixelName << " = pow(";
             shader << "max(" << pixelName << ", " << GpuTextHalf4(zerovec, lang) << ")";
             shader << ", " << GpuTextHalf4(exp, lang) << ");\n";
-            // FIXME: Blink probably doesn't support pow(float4, float4) etc
         }
         
     }  // Anon namespace
