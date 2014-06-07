@@ -105,6 +105,22 @@ set_target_properties(NukeOCIOCDLTransform
 )
 
 ###############################################################################
+### NukeOCIOBlink ###
+
+add_library(NukeOCIOBlink SHARED
+    OCIOBlink/OCIOBlink.cpp
+)
+target_link_libraries(NukeOCIOBlink
+    OpenColorIO
+    #${Nuke_LIBRARIES}
+)
+set_target_properties(NukeOCIOBlink
+    PROPERTIES
+    PREFIX ""
+    OUTPUT_NAME "OCIOBlink"
+)
+
+###############################################################################
 ### Nuke Targets ###
 
 add_custom_target(Nuke
@@ -113,6 +129,7 @@ add_custom_target(Nuke
     DEPENDS NukeOCIOFileTransform
     DEPENDS NukeOCIOLogConvert
     DEPENDS NukeOCIOCDLTransform
+    DEPENDS NukeOCIOBlink
 )
 
 install(TARGETS NukeOCIOColorSpace
@@ -131,6 +148,9 @@ install(TARGETS NukeOCIOLookTransform
         DESTINATION ${CMAKE_INSTALL_EXEC_PREFIX}/lib/nuke${Nuke_API_VERSION})
 
 install(TARGETS NukeOCIOCDLTransform
+        DESTINATION ${CMAKE_INSTALL_EXEC_PREFIX}/lib/nuke${Nuke_API_VERSION})
+
+install(TARGETS NukeOCIOBlink
         DESTINATION ${CMAKE_INSTALL_EXEC_PREFIX}/lib/nuke${Nuke_API_VERSION})
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/share/nuke
