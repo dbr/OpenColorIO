@@ -17,16 +17,16 @@ namespace {
     std::string OCIOKernelBasis = ""
         "kernel OCIOBlinkKernel : ImageComputationKernel<ePixelWise>"
         "{\n"
-        "  Image<eRead, eAccessPoint, eEdgeClamped> src;  //the input image\n"
-        "  Image<eWrite> dst;  //the output image\n"
+        "  Image<eRead, eAccessPoint, eEdgeClamped> src;\n"
+        "  Image<eWrite> dst;\n"
         "\n"
         "  local:\n"
         "\n"
-        "  //The kernel function is run at every pixel to produce the output.\n"
         "  void process() {\n"
-        "    //Invert the input value from src and multiply:\n"
-        "    float lut[] = {1,1,1};\n" // FIXME
-        "    dst() = ocio_blink_func(src(), lut);\n"
+        "    dst() = src.kComps;\n"
+        "    return;\n"
+        "    //float lut[] = {1,1,1};\n" // FIXME
+        "    //dst() = ocio_blink_func(src(), lut);\n"
         "   }\n"
         "};\n";
 }
@@ -40,6 +40,7 @@ protected:
 
     // Whether to process on the GPU, if available
     bool _useGPUIfAvailable;
+    bool _useBlink;
 
     // The amount of gain to apply.
     float _gain;
@@ -53,11 +54,11 @@ protected:
 public:
     static const char* modes[];
 
-    // Constructor. Initialize user controls and local variables to their default values.
     OCIOBlink(Node* node) 
         : PlanarIop(node)
         , _gpuDevice(Blink::ComputeDevice::CurrentGPUDevice())
         , _useGPUIfAvailable(true)
+        , _useBlink(true)
         , _blinkProgram("")
     {
         _gain = 2.0f;
@@ -95,6 +96,10 @@ void OCIOBlink::knobs(DD::Image::Knob_Callback f)
     Named_Text_knob(f, "gpuName", gpuName.c_str());
     Newline(f);
     Bool_knob(f, &_useGPUIfAvailable, "use_gpu", "Use GPU if available");
+    Divider(f);
+
+
+    Bool_knob(f, &_useBlink, "use_blink", "Use Blink!");
     Divider(f);
 
     // Add a parameter for the gain amount.
@@ -186,9 +191,43 @@ void  OCIOBlink::getRequests(const DD::Image::Box& box, const DD::Image::Channel
     reqData.request(&input0(), box, channels, count);
 }
 
+// Note that this is copied by others (OCIODisplay)
+void OCIOBlink::in_channels(int /* n unused */, DD::Image::ChannelSet& mask) const
+{
+    DD::Image::ChannelSet done;
+    foreach(c, mask)
+    {
+        if (DD::Image::colourIndex(c) < 3 && !(done & c))
+        {
+            done.addBrothers(c, 3);
+        }
+    }
+    mask += done;
+}
 
 void OCIOBlink::renderStripe(DD::Image::ImagePlane& outputPlane)
 {
+    // CPU Path
+    if(!_useBlink)
+    {
+        input0().fetchPlane(outputPlane);
+        outputPlane.makeUnique();
+        outputPlane.makeWritable();
+        DD::Image::Box box = outputPlane.bounds();
+
+        OCIO::PackedImageDesc img(
+            outputPlane.writable(),
+            outputPlane.bounds().w(), outputPlane.bounds().h(),
+            outputPlane.nComps());
+
+        processor->apply(img);
+
+        return;
+    } // end CPU path
+
+
+    // GPU path:
+
     // Make an ImagePlaneDescriptor that describes how the inputs should be stored.
     DD::Image::ImagePlaneDescriptor inputDescriptor(
         outputPlane.bounds(), // the bounds of the input we want to fetch
@@ -243,42 +282,50 @@ void OCIOBlink::renderStripe(DD::Image::ImagePlane& outputPlane)
     images.push_back(outputImage);
 
     // Make a Blink::Kernel from the source in _gainProgram to do the gain.
-    Blink::Kernel kernel(_blinkProgram, 
+    try{
+        Blink::Kernel kernel(_blinkProgram, 
                              computeDevice, 
                              images,
                              kBlinkCodegenDefault);
-    //kernel.setParamValue("Gain", _gain);
-  
-    // Run the gain kernel over the output image.
-    kernel.iterate();
+        //kernel.setParamValue("Gain", _gain);
 
-    // If we're using the GPU, copy the result back to NUKE's output plane.
-    if (usingGPU) {
-        outputPlaneAsImage.copyFrom(outputImage);
+        // Run the gain kernel over the output image.
+        kernel.iterate();
+        
+        // If we're using the GPU, copy the result back to NUKE's output plane.
+        if (usingGPU) {
+            outputPlaneAsImage.copyFrom(outputImage);
+        }
+
+    } catch(Blink::ParseException & e){
+        std::ostringstream os;
+        os << "Error parsing Blink kernel: " << e.parseError() << " at line " << e.lineNumber();
+        std::cerr << os.str() << "\n"; // TODO: Dump kernel source
+        error(os.str().c_str());
+        return;
+
+    } catch(Blink::Exception & e){
+        std::cerr << "Blink kernel error: " << e.userMessage() << "\n";
+        error(e.userMessage().c_str());
+        return;
     }
 }
 
-/*
- * Override of PlanarIop function; returns true.
- * renderStripe() will be called on imageplanes of size info().w() x stripeHeight().
- */
 bool OCIOBlink::useStripes() const
 {
     return true;
 }
 
-/*
- * Override of PlanarIop function;
- * returns a fixed stripe height of 256.
- */
 size_t OCIOBlink::stripeHeight() const
 {
-    return 256;
+    return 1;
 }
 
 static DD::Image::Iop* OCIOBlinkCreate(Node* node)
 {
-    return new OCIOBlink(node);
+    DD::Image::NukeWrapper *op = new DD::Image::NukeWrapper(new OCIOBlink(node));
+    op->channels(DD::Image::Mask_RGB);
+    return op;
 }
 
 const DD::Image::Iop::Description OCIOBlink::description(CLASS, "Filter/OCIOBlink",
